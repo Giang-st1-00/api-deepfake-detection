@@ -1,0 +1,7 @@
+uvicorn
+tensorflow
+keras
+fastapi
+matplotlib
+python-multipart
+h5py
