@@ -5,3 +5,4 @@ fastapi
 matplotlib
 python-multipart
 h5py
+opencv-python-headless

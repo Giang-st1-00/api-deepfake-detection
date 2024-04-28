@@ -94,14 +94,24 @@ async def create_upload_file(file: UploadFile = File(...)):
     file.filename = f"{uuid.uuid4()}.jpg"
     contents = await file.read()
     
+    # Mở ảnh sử dụng PIL
     image = Image.open(io.BytesIO(contents))
 
+    # Đảm bảo ảnh là RGB (3 kênh màu)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    
+    # Resize ảnh để phù hợp với mô hình
     image = image.resize((256, 256))
-
+    
+    # Chuyển đổi ảnh thành mảng numpy
     image_array = np.array(image)
 
+    # Mở rộng kích thước để tạo một batch với kích thước là 1
     prediction = meso.predict(np.expand_dims(image_array, axis=0)) 
+    
     return JSONResponse(content={"prediction": prediction.tolist()})
+
 
 @app.get("/check")
 def read_root():
