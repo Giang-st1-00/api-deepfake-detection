@@ -132,7 +132,7 @@ async def create_upload_file(video_file: UploadFile = File(...)):
             predictions.append(float(prediction[0][0]))
 
     
-    threshold = 5  
+    threshold = 20  
     count_not_one = sum(1 for pred in predictions if pred != 1)
     percentage_not_one = (count_not_one / len(predictions)) * 100
 
